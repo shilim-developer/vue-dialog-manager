@@ -32,14 +32,20 @@ import Drawer from "./Drawer.vue";
 const DialogManager = createDialogManager();
 
 const openDialogManageDialog = () => {
-  DialogManager.open(Dialog, {
+  const dialogKey = DialogManager.open(Dialog, {
     content: "这是一个弹窗",
+    onSuccess: () => {
+      DialogManager.close(dialogKey);
+    },
   });
 };
 
 const openDialogManageDrawer = () => {
-  DialogManager.open(Drawer, {
+  const drawerKey = DialogManager.open(Drawer, {
     content: "这是一个抽屉",
+    onSuccess: () => {
+      DialogManager.close(drawerKey);
+    },
   });
 };
 </script>
@@ -49,33 +55,37 @@ const openDialogManageDrawer = () => {
 ```vue
 <template>
   <n-modal
-    v-model:show="show"
+    v-model:show="visible"
     preset="dialog"
     title="确认"
     :on-after-leave="closed"
   >
     <div>{{ content }}</div>
+    <n-space>
+      <n-button @click="visible = false">内部关闭弹窗</n-button>
+      <n-button @click="onSuccess">外部关闭弹窗</n-button>
+    </n-space>
   </n-modal>
 </template>
 
 <script setup lang="ts">
-import { NModal } from "naive-ui";
-import { onMounted, ref } from "vue";
-const props = defineProps<{
-  visible: boolean;
+import { NModal, NSpace, NButton } from "naive-ui";
+import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
+import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
+import { onMounted } from "vue";
+type PropsType = {
   content: string;
-}>();
-const show = ref(false);
+  onSuccess: () => void;
+} & DialogComponent.Props;
+const props = defineProps<PropsType>();
+const visible = usePropsVisible(props);
+visible.value = false;
 onMounted(() => {
-  show.value = props.visible;
+  visible.value = true;
 });
 
-const emit = defineEmits<{
-  (event: "closed"): void;
-}>();
-
 const closed = () => {
-  emit("closed");
+  props.onClosed();
 };
 </script>
 ```
@@ -84,35 +94,39 @@ const closed = () => {
 ```vue
 <template>
   <n-drawer
-    v-model:show="show"
+    v-model:show="visible"
     preset="dialog"
     title="确认"
     :on-after-leave="closed"
   >
     <n-drawer-content title="抽屉" closable>
       <div>{{ content }}</div>
+      <n-space>
+        <n-button @click="visible = false">内部关闭抽屉</n-button>
+        <n-button @click="onSuccess">外部关闭抽屉</n-button>
+      </n-space>
     </n-drawer-content>
   </n-drawer>
 </template>
 
 <script setup lang="ts">
-import { NDrawer, NDrawerContent } from "naive-ui";
-import { onMounted, ref } from "vue";
-const props = defineProps<{
-  visible: boolean;
+import { NDrawer, NDrawerContent, NSpace, NButton } from "naive-ui";
+import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
+import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
+import { onMounted } from "vue";
+type PropsType = {
   content: string;
-}>();
-const show = ref(false);
+  onSuccess: () => void;
+} & DialogComponent.Props;
+const props = defineProps<PropsType>();
+const visible = usePropsVisible(props);
+visible.value = false;
 onMounted(() => {
-  show.value = props.visible;
+  visible.value = true;
 });
 
-const emit = defineEmits<{
-  (event: "closed"): void;
-}>();
-
 const closed = () => {
-  emit("closed");
+  props.onClosed();
 };
 </script>
 ```

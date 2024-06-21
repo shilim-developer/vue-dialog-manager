@@ -2,30 +2,30 @@
 outline: deep
 ---
 
-# Examples
+# 演示
 
 <demo-block>
-  <AntDesignVueExample/>
+  <NaiveUiExample/>
 </demo-block>
 
-### Example Code
+### 演示代码
 ```vue
 <template>
-  <a-space>
-    <a-button type="primary" @click="openDialogManageDialog">
+  <n-space>
+    <n-button type="primary" @click="openDialogManageDialog">
       打开弹窗
-    </a-button>
-    <a-button type="primary" @click="openDialogManageDrawer">
+    </n-button>
+    <n-button type="primary" @click="openDialogManageDrawer">
       打开抽屉
-    </a-button>
-  </a-space>
+    </n-button>
+  </n-space>
 
   <DialogManager />
 </template>
 
 <script setup lang="ts">
 import { createDialogManager } from "@shilim-developer/vue-dialog-manager";
-import { Button as AButton, Space as ASpace } from "ant-design-vue";
+import { NSpace, NButton } from "naive-ui";
 import Dialog from "./Dialog.vue";
 import Drawer from "./Drawer.vue";
 
@@ -54,29 +54,35 @@ const openDialogManageDrawer = () => {
 ### Dialog.vue
 ```vue
 <template>
-  <a-modal v-model:open="visible" title="弹窗" :after-close="closed">
+  <n-modal
+    v-model:show="visible"
+    preset="dialog"
+    title="确认"
+    :on-after-leave="closed"
+  >
     <div>{{ content }}</div>
-    <a-space>
-      <a-button @click="visible = false">内部关闭弹窗</a-button>
-      <a-button @click="onSuccess">外部关闭弹窗</a-button>
-    </a-space>
-  </a-modal>
+    <n-space>
+      <n-button @click="visible = false">内部关闭弹窗</n-button>
+      <n-button @click="onSuccess">外部关闭弹窗</n-button>
+    </n-space>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
-import {
-  Modal as AModal,
-  Space as ASpace,
-  Button as AButton,
-} from "ant-design-vue";
+import { NModal, NSpace, NButton } from "naive-ui";
 import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
 import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
+import { onMounted } from "vue";
 type PropsType = {
   content: string;
   onSuccess: () => void;
 } & DialogComponent.Props;
 const props = defineProps<PropsType>();
 const visible = usePropsVisible(props);
+visible.value = false;
+onMounted(() => {
+  visible.value = true;
+});
 
 const closed = () => {
   props.onClosed();
@@ -87,33 +93,37 @@ const closed = () => {
 ### Drawer.vue
 ```vue
 <template>
-  <a-drawer
-    v-model:open="visible"
-    title="抽屉"
-    @after-open-change="(open) => !open && closed()"
+  <n-drawer
+    v-model:show="visible"
+    preset="dialog"
+    title="确认"
+    :on-after-leave="closed"
   >
-    <div>{{ content }}</div>
-    <a-space>
-      <a-button @click="visible = false">内部关闭抽屉</a-button>
-      <a-button @click="onSuccess">外部关闭抽屉</a-button>
-    </a-space>
-  </a-drawer>
+    <n-drawer-content title="抽屉" closable>
+      <div>{{ content }}</div>
+      <n-space>
+        <n-button @click="visible = false">内部关闭抽屉</n-button>
+        <n-button @click="onSuccess">外部关闭抽屉</n-button>
+      </n-space>
+    </n-drawer-content>
+  </n-drawer>
 </template>
 
 <script setup lang="ts">
-import {
-  Drawer as ADrawer,
-  Space as ASpace,
-  Button as AButton,
-} from "ant-design-vue";
+import { NDrawer, NDrawerContent, NSpace, NButton } from "naive-ui";
 import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
 import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
+import { onMounted } from "vue";
 type PropsType = {
   content: string;
   onSuccess: () => void;
 } & DialogComponent.Props;
 const props = defineProps<PropsType>();
 const visible = usePropsVisible(props);
+visible.value = false;
+onMounted(() => {
+  visible.value = true;
+});
 
 const closed = () => {
   props.onClosed();

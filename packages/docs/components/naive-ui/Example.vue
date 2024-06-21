@@ -20,14 +20,20 @@ import Drawer from "./Drawer.vue";
 const DialogManager = createDialogManager();
 
 const openDialogManageDialog = () => {
-  DialogManager.open(Dialog, {
+  const dialogKey = DialogManager.open(Dialog, {
     content: "这是一个弹窗",
+    onSuccess: () => {
+      DialogManager.close(dialogKey);
+    },
   });
 };
 
 const openDialogManageDrawer = () => {
-  DialogManager.open(Drawer, {
+  const drawerKey = DialogManager.open(Drawer, {
     content: "这是一个抽屉",
+    onSuccess: () => {
+      DialogManager.close(drawerKey);
+    },
   });
 };
 </script>

@@ -2,30 +2,28 @@
 outline: deep
 ---
 
-# Examples
+# 演示
 
 <demo-block>
-  <AntDesignVueExample/>
+  <ElementPlusExample/>
 </demo-block>
 
-### Example Code
+### 演示代码
 ```vue
 <template>
-  <a-space>
-    <a-button type="primary" @click="openDialogManageDialog">
-      打开弹窗
-    </a-button>
-    <a-button type="primary" @click="openDialogManageDrawer">
-      打开抽屉
-    </a-button>
-  </a-space>
+  <el-button type="primary" @click="openDialogManageDialog">
+    打开弹窗
+  </el-button>
+  <el-button type="primary" @click="openDialogManageDrawer">
+    打开抽屉
+  </el-button>
 
   <DialogManager />
 </template>
 
 <script setup lang="ts">
 import { createDialogManager } from "@shilim-developer/vue-dialog-manager";
-import { Button as AButton, Space as ASpace } from "ant-design-vue";
+import { ElButton } from "element-plus";
 import Dialog from "./Dialog.vue";
 import Drawer from "./Drawer.vue";
 
@@ -54,21 +52,15 @@ const openDialogManageDrawer = () => {
 ### Dialog.vue
 ```vue
 <template>
-  <a-modal v-model:open="visible" title="弹窗" :after-close="closed">
+  <el-dialog v-model="visible" title="弹窗" @closed="closed">
     <div>{{ content }}</div>
-    <a-space>
-      <a-button @click="visible = false">内部关闭弹窗</a-button>
-      <a-button @click="onSuccess">外部关闭弹窗</a-button>
-    </a-space>
-  </a-modal>
+    <el-button @click="visible = false">内部关闭弹窗</el-button>
+    <el-button @click="onSuccess">外部关闭弹窗</el-button>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
-import {
-  Modal as AModal,
-  Space as ASpace,
-  Button as AButton,
-} from "ant-design-vue";
+import { ElDialog, ElButton } from "element-plus";
 import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
 import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
 type PropsType = {
@@ -87,25 +79,15 @@ const closed = () => {
 ### Drawer.vue
 ```vue
 <template>
-  <a-drawer
-    v-model:open="visible"
-    title="抽屉"
-    @after-open-change="(open) => !open && closed()"
-  >
+  <el-drawer :model-value="visible" title="抽屉" @closed="closed">
     <div>{{ content }}</div>
-    <a-space>
-      <a-button @click="visible = false">内部关闭抽屉</a-button>
-      <a-button @click="onSuccess">外部关闭抽屉</a-button>
-    </a-space>
-  </a-drawer>
+    <el-button @click="visible = false">内部关闭抽屉</el-button>
+    <el-button @click="onSuccess">外部关闭抽屉</el-button>
+  </el-drawer>
 </template>
 
 <script setup lang="ts">
-import {
-  Drawer as ADrawer,
-  Space as ASpace,
-  Button as AButton,
-} from "ant-design-vue";
+import { ElDrawer, ElButton } from "element-plus";
 import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
 import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
 type PropsType = {

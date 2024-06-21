@@ -12,6 +12,8 @@ export declare const createDialogManager: () => {
     (): import('vue').VNode<import('vue').RendererNode, import('vue').RendererElement, {
         [key: string]: any;
     }>;
-    open: <T extends Component>(component: T, props?: Omit<ComponentProps<T>, "visible" | "onClosed">, key?: string) => void;
-    openInCache: <T_1 extends Component>(component: T_1, props?: Omit<ComponentProps<T_1>, "visible" | "onClosed">, key?: string) => void;
+    open: <T extends Component>(component: T, props?: Omit<ComponentProps<T>, "visible" | "onClosed">, key?: string) => string;
+    openInCache: <T_1 extends Component>(component: T_1, props?: Omit<ComponentProps<T_1>, "visible" | "onClosed">, key?: string) => string;
+    close: (key: string) => void;
+    closeAll: () => void;
 };

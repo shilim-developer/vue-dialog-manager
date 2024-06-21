@@ -1,38 +1,48 @@
-import { defineComponent as a, openBlock as l, createElementBlock as u, Fragment as f, renderList as _, createBlock as h, resolveDynamicComponent as C, mergeProps as g, shallowReactive as D, h as v, reactive as m } from "vue";
-const P = /* @__PURE__ */ a({
+import { defineComponent as f, openBlock as i, createElementBlock as v, Fragment as h, renderList as b, createBlock as _, resolveDynamicComponent as C, mergeProps as g, shallowReactive as D, h as P, reactive as m, ref as k, watch as y } from "vue";
+const A = /* @__PURE__ */ f({
   __name: "DynamicDialog",
   props: {
     componentStore: {}
   },
-  setup(n) {
-    return (s, t) => (l(!0), u(f, null, _(s.componentStore, (r, p) => (l(), h(C(r.component), g({ ref_for: !0 }, r.props, { key: p }), null, 16))), 128));
+  setup(o) {
+    return (s, l) => (i(!0), v(h, null, b(s.componentStore, (c, p) => (i(), _(C(c.component), g({ ref_for: !0 }, c.props, { key: p }), null, 16))), 128));
   }
-}), k = () => {
-  const n = D({}), s = (e) => {
-    const o = e.key || e.component.name || e.component.__name || "DEFAULT_DIALOG";
-    e.props.visible = !0, e.props.onClosed = () => {
-      e.isCache ? n[o].props.visible = !1 : delete n[o];
-    }, Reflect.has(n, o) ? e.isCache ? Object.assign(n[o].props, {
+}), I = () => {
+  const o = D({}), s = (e) => {
+    const n = e.key || e.component.name || e.component.__name || "DEFAULT_DIALOG";
+    return e.props.visible = !0, e.props.onClosed = () => {
+      e.isCache ? o[n].props.visible = !1 : delete o[n];
+    }, Reflect.has(o, n) ? e.isCache ? Object.assign(o[n].props, {
       ...e.props,
       visible: !0
-    }) : (delete n[o], n[o] = { ...e, props: m(e.props) }) : n[o] = { ...e, props: m(e.props) };
-  }, t = (e, o = {}, c) => {
-    s({
-      component: e,
-      props: o,
-      key: c,
-      isCache: !1
-    });
-  }, r = (e, o = {}, c) => {
-    s({
-      component: e,
-      props: o,
-      key: c,
-      isCache: !0
-    });
-  }, p = () => v(P, { componentStore: n });
-  return p.open = t, p.openInCache = r, p;
+    }) : (delete o[n], o[n] = { ...e, props: m(e.props) }) : o[n] = { ...e, props: m(e.props) }, n;
+  }, l = (e, n = {}, t) => s({
+    component: e,
+    props: n,
+    key: t,
+    isCache: !1
+  }), c = (e, n = {}, t) => s({
+    component: e,
+    props: n,
+    key: t,
+    isCache: !0
+  }), p = (e) => {
+    Reflect.has(o, e) && (o[e].props.visible = !1);
+  }, a = () => {
+    for (const e in o)
+      o[e].props.visible = !1;
+  }, r = () => P(A, { componentStore: o });
+  return r.open = l, r.openInCache = c, r.close = p, r.closeAll = a, r;
+}, L = (o) => {
+  const s = k(o.visible);
+  return y(
+    () => o.visible,
+    () => {
+      s.value = o.visible;
+    }
+  ), s;
 };
 export {
-  k as createDialogManager
+  I as createDialogManager,
+  L as usePropsVisible
 };

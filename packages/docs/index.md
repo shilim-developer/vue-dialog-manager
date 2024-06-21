@@ -14,20 +14,36 @@ outline: deep
   <el-button type="primary" @click="openDialogManageDialog">
     打开弹窗
   </el-button>
+  <el-button type="primary" @click="openDialogManageDrawer">
+    打开抽屉
+  </el-button>
 
   <DialogManager />
 </template>
 
 <script setup lang="ts">
 import { createDialogManager } from "@shilim-developer/vue-dialog-manager";
+import { ElButton } from "element-plus";
 import Dialog from "./Dialog.vue";
+import Drawer from "./Drawer.vue";
 
 const DialogManager = createDialogManager();
 
 const openDialogManageDialog = () => {
-  DialogManager.open(Dialog, {
+  const dialogKey = DialogManager.open(Dialog, {
     content: "这是一个弹窗",
-    class: "test",
+    onSuccess: () => {
+      DialogManager.close(dialogKey);
+    },
+  });
+};
+
+const openDialogManageDrawer = () => {
+  const drawerKey = DialogManager.open(Drawer, {
+    content: "这是一个抽屉",
+    onSuccess: () => {
+      DialogManager.close(drawerKey);
+    },
   });
 };
 </script>
@@ -36,28 +52,26 @@ const openDialogManageDialog = () => {
 ### Dialog.vue
 ```vue
 <template>
-  <ElDialog :model-value="visible" title="dialogManagerDialog" @closed="closed">
+  <el-dialog v-model="visible" title="弹窗" @closed="closed">
     <div>{{ content }}</div>
-    <ElInput v-model="inputValue"></ElInput>
-  </ElDialog>
+    <el-button @click="visible = false">内部关闭弹窗</el-button>
+    <el-button @click="onSuccess">外部关闭弹窗</el-button>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ElDialog, ElInput } from "element-plus";
-import { ref } from "vue";
-defineProps<{
-  visible: boolean;
+import { ElDialog, ElButton } from "element-plus";
+import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
+import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
+type PropsType = {
   content: string;
-}>();
-
-const inputValue = ref("");
-
-const emit = defineEmits<{
-  (event: "closed"): void;
-}>();
+  onSuccess: () => void;
+} & DialogComponent.Props;
+const props = defineProps<PropsType>();
+const visible = usePropsVisible(props);
 
 const closed = () => {
-  emit("closed");
+  props.onClosed();
 };
 </script>
 ```
@@ -65,24 +79,26 @@ const closed = () => {
 ### Drawer.vue
 ```vue
 <template>
-  <ElDrawer :model-value="visible" title="抽屉" @closed="closed">
+  <el-drawer :model-value="visible" title="抽屉" @closed="closed">
     <div>{{ content }}</div>
-  </ElDrawer>
+    <el-button @click="visible = false">内部关闭抽屉</el-button>
+    <el-button @click="onSuccess">外部关闭抽屉</el-button>
+  </el-drawer>
 </template>
 
 <script setup lang="ts">
-import { ElDrawer } from "element-plus";
-defineProps<{
-  visible: boolean;
+import { ElDrawer, ElButton } from "element-plus";
+import { DialogComponent } from "@shilim-developer/vue-dialog-manager/lib/types/dialog";
+import { usePropsVisible } from "@shilim-developer/vue-dialog-manager";
+type PropsType = {
   content: string;
-}>();
-
-const emit = defineEmits<{
-  (event: "closed"): void;
-}>();
+  onSuccess: () => void;
+} & DialogComponent.Props;
+const props = defineProps<PropsType>();
+const visible = usePropsVisible(props);
 
 const closed = () => {
-  emit("closed");
+  props.onClosed();
 };
 </script>
 ```

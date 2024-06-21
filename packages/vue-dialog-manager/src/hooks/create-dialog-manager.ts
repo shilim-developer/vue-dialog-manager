@@ -66,6 +66,7 @@ export const createDialogManager = () => {
       // 新模态框
       componentStore[componentKey] = { ...data, props: reactive(data.props) };
     }
+    return componentKey;
   };
 
   const open = <T extends Component>(
@@ -75,14 +76,14 @@ export const createDialogManager = () => {
       "visible" | "onClosed"
     > = {} as ComponentProps<T>,
     key?: string
-  ) => {
+  ): string => {
     const openParams = {
       component,
       props,
       key,
       isCache: false,
     };
-    setDialog(openParams as ComponentProps<T>);
+    return setDialog(openParams as ComponentProps<T>);
   };
 
   const openInCache = <T extends Component>(
@@ -92,17 +93,30 @@ export const createDialogManager = () => {
       "visible" | "onClosed"
     > = {} as ComponentProps<T>,
     key?: string
-  ) => {
+  ): string => {
     const openParams = {
       component,
       props,
       key,
       isCache: true,
     };
-    setDialog(openParams as ComponentProps<T>);
+    return setDialog(openParams as ComponentProps<T>);
+  };
+
+  const close = (key: string) => {
+    if (Reflect.has(componentStore, key)) {
+      componentStore[key].props.visible = false;
+    }
+  };
+  const closeAll = () => {
+    for (const key in componentStore) {
+      componentStore[key].props.visible = false;
+    }
   };
   const component = () => h(DynamicDialog, { componentStore });
   component.open = open;
   component.openInCache = openInCache;
+  component.close = close;
+  component.closeAll = closeAll;
   return component;
 };
