@@ -7,6 +7,7 @@ import ElementPlus from "unplugin-element-plus/vite";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/vue-dialog-manager/",
   title: "vue-dialog-manager",
   description: "document for vue-dialog-manager",
   themeConfig: {
