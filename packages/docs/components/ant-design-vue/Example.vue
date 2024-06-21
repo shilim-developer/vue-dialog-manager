@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { createDialogManager } from "@shilim-develop/vue-dialog-manager";
+import { createDialogManager } from "@shilim-developer/vue-dialog-manager";
 import { Button as AButton, Space as ASpace } from "ant-design-vue";
 import Dialog from "./Dialog.vue";
 import Drawer from "./Drawer.vue";

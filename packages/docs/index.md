@@ -19,7 +19,7 @@ outline: deep
 </template>
 
 <script setup lang="ts">
-import { createDialogManager } from "@shilim-develop/vue-dialog-manager";
+import { createDialogManager } from "@shilim-developer/vue-dialog-manager";
 import Dialog from "./Dialog.vue";
 
 const DialogManager = createDialogManager();

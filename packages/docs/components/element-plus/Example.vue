@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { createDialogManager } from "@shilim-develop/vue-dialog-manager";
+import { createDialogManager } from "@shilim-developer/vue-dialog-manager";
 import { ElButton } from "element-plus";
 import Dialog from "./Dialog.vue";
 import Drawer from "./Drawer.vue";
