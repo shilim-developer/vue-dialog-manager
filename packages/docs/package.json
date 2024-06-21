@@ -14,14 +14,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@shilim-develop/vue-dialog-manager": "workspace:*",
     "less": "^4.2.0",
     "unplugin-element-plus": "^0.8.0",
     "vitepress": "^1.2.3",
     "vitepress-theme-demoblock": "^3.0.7"
   },
   "dependencies": {
-    "@shilim-developer/vue-dialog-manager": "^1.0.0",
+    "@shilim-developer/vue-dialog-manager": "workspace:*",
     "ant-design-vue": "4.x",
     "naive-ui": "^2.38.2"
   }
