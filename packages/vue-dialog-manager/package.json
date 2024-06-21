@@ -1,0 +1,26 @@
+{
+  "name": "@shilim-developer/vue-dialog-manager",
+  "version": "1.0.0",
+  "description": "A Vue3 Library, easy to open modal and drawer",
+  "files": [
+    "lib",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "README.zh-Hans.md"
+  ],
+  "main": "./lib/vue-dialog-manager.umd.js",
+  "module": "./lib/vue-dialog-manager.es.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vue-tsc --noEmit && vite build"
+  },
+  "keywords": [],
+  "author": "shilim",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shilim-developer/vue-dialog-manager.git"
+  },
+  "license": "MIT"
+}

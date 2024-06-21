@@ -1,0 +1,28 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "pnpm run register:components && vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview",
+    "register:components": "vitepress-rc --docsDir . --componentsDir ../components"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@shilim-develop/vue-dialog-manager": "workspace:*",
+    "less": "^4.2.0",
+    "unplugin-element-plus": "^0.8.0",
+    "vitepress": "^1.2.3",
+    "vitepress-theme-demoblock": "^3.0.7"
+  },
+  "dependencies": {
+    "@shilim-developer/vue-dialog-manager": "^1.0.0",
+    "ant-design-vue": "4.x",
+    "naive-ui": "^2.38.2"
+  }
+}
