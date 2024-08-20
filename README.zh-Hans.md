@@ -1,7 +1,7 @@
 <h1 align="center">vue-dialog-manager</h1>
 
 <p align="center">
-  <a href="https://github.com/shilim-developer/vue-dialog-manager/blob/master">
+  <a href="https://www.npmjs.com/package/@shilim-developer/vue-dialog-manager">
     <img alt="version" src="https://img.shields.io/npm/v/@shilim-developer/vue-dialog-manager"/>
   </a>
   <a href="https://github.com/shilim-developer/vue-dialog-manager/blob/master/LICENSE">
