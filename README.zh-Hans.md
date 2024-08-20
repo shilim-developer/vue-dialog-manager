@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/shilim-developer/vue-dialog-manager/blob/master">
-    <img alt="version" src="https://img.shields.io/github/package-json/v/shilim-developer/vue-dialog-manager"/>
+    <img alt="version" src="https://img.shields.io/npm/v/@shilim-developer/vue-dialog-manager"/>
   </a>
   <a href="https://github.com/shilim-developer/vue-dialog-manager/blob/master/LICENSE">
     <img alt="LICENSE" src="https://img.shields.io/github/license/shilim-developer/vue-dialog-manager"/>
